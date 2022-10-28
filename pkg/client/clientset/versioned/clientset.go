@@ -21,7 +21,7 @@ package versioned
 import (
 	"fmt"
 
-	stablev1beat1 "github.com/SeasonPilot/controller-demo/pkg/client/clientset/versioned/typed/stable/v1beat1"
+	stablev1beta1 "github.com/SeasonPilot/controller-demo/pkg/client/clientset/versioned/typed/stable/v1beta1"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"
@@ -29,19 +29,19 @@ import (
 
 type Interface interface {
 	Discovery() discovery.DiscoveryInterface
-	StableV1beat1() stablev1beat1.StableV1beat1Interface
+	StableV1beta1() stablev1beta1.StableV1beta1Interface
 }
 
 // Clientset contains the clients for groups. Each group has exactly one
 // version included in a Clientset.
 type Clientset struct {
 	*discovery.DiscoveryClient
-	stableV1beat1 *stablev1beat1.StableV1beat1Client
+	stableV1beta1 *stablev1beta1.StableV1beta1Client
 }
 
-// StableV1beat1 retrieves the StableV1beat1Client
-func (c *Clientset) StableV1beat1() stablev1beat1.StableV1beat1Interface {
-	return c.stableV1beat1
+// StableV1beta1 retrieves the StableV1beta1Client
+func (c *Clientset) StableV1beta1() stablev1beta1.StableV1beta1Interface {
+	return c.stableV1beta1
 }
 
 // Discovery retrieves the DiscoveryClient
@@ -65,7 +65,7 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 	}
 	var cs Clientset
 	var err error
-	cs.stableV1beat1, err = stablev1beat1.NewForConfig(&configShallowCopy)
+	cs.stableV1beta1, err = stablev1beta1.NewForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
 	}
@@ -81,7 +81,7 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 // panics if there is an error in the config.
 func NewForConfigOrDie(c *rest.Config) *Clientset {
 	var cs Clientset
-	cs.stableV1beat1 = stablev1beat1.NewForConfigOrDie(c)
+	cs.stableV1beta1 = stablev1beta1.NewForConfigOrDie(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClientForConfigOrDie(c)
 	return &cs
@@ -90,7 +90,7 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 // New creates a new Clientset for the given RESTClient.
 func New(c rest.Interface) *Clientset {
 	var cs Clientset
-	cs.stableV1beat1 = stablev1beat1.New(c)
+	cs.stableV1beta1 = stablev1beta1.New(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClient(c)
 	return &cs

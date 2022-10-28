@@ -21,7 +21,7 @@ package externalversions
 import (
 	"fmt"
 
-	v1beat1 "github.com/SeasonPilot/controller-demo/pkg/apis/stable/v1beat1"
+	v1beta1 "github.com/SeasonPilot/controller-demo/pkg/apis/stable/v1beta1"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	cache "k8s.io/client-go/tools/cache"
 )
@@ -52,9 +52,9 @@ func (f *genericInformer) Lister() cache.GenericLister {
 // TODO extend this to unknown resources with a client pool
 func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource) (GenericInformer, error) {
 	switch resource {
-	// Group=stable, Version=v1beat1
-	case v1beat1.SchemeGroupVersion.WithResource("crontabs"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.Stable().V1beat1().CronTabs().Informer()}, nil
+	// Group=stable, Version=v1beta1
+	case v1beta1.SchemeGroupVersion.WithResource("crontabs"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Stable().V1beta1().CronTabs().Informer()}, nil
 
 	}
 

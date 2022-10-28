@@ -20,13 +20,13 @@ package stable
 
 import (
 	internalinterfaces "github.com/SeasonPilot/controller-demo/pkg/client/informers/externalversions/internalinterfaces"
-	v1beat1 "github.com/SeasonPilot/controller-demo/pkg/client/informers/externalversions/stable/v1beat1"
+	v1beta1 "github.com/SeasonPilot/controller-demo/pkg/client/informers/externalversions/stable/v1beta1"
 )
 
 // Interface provides access to each of this group's versions.
 type Interface interface {
-	// V1beat1 provides access to shared informers for resources in V1beat1.
-	V1beat1() v1beat1.Interface
+	// V1beta1 provides access to shared informers for resources in V1beta1.
+	V1beta1() v1beta1.Interface
 }
 
 type group struct {
@@ -40,7 +40,7 @@ func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakList
 	return &group{factory: f, namespace: namespace, tweakListOptions: tweakListOptions}
 }
 
-// V1beat1 returns a new v1beat1.Interface.
-func (g *group) V1beat1() v1beat1.Interface {
-	return v1beat1.New(g.factory, g.namespace, g.tweakListOptions)
+// V1beta1 returns a new v1beta1.Interface.
+func (g *group) V1beta1() v1beta1.Interface {
+	return v1beta1.New(g.factory, g.namespace, g.tweakListOptions)
 }

@@ -20,8 +20,8 @@ package fake
 
 import (
 	clientset "github.com/SeasonPilot/controller-demo/pkg/client/clientset/versioned"
-	stablev1beat1 "github.com/SeasonPilot/controller-demo/pkg/client/clientset/versioned/typed/stable/v1beat1"
-	fakestablev1beat1 "github.com/SeasonPilot/controller-demo/pkg/client/clientset/versioned/typed/stable/v1beat1/fake"
+	stablev1beta1 "github.com/SeasonPilot/controller-demo/pkg/client/clientset/versioned/typed/stable/v1beta1"
+	fakestablev1beta1 "github.com/SeasonPilot/controller-demo/pkg/client/clientset/versioned/typed/stable/v1beta1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"
@@ -76,7 +76,7 @@ func (c *Clientset) Tracker() testing.ObjectTracker {
 
 var _ clientset.Interface = &Clientset{}
 
-// StableV1beat1 retrieves the StableV1beat1Client
-func (c *Clientset) StableV1beat1() stablev1beat1.StableV1beat1Interface {
-	return &fakestablev1beat1.FakeStableV1beat1{Fake: &c.Fake}
+// StableV1beta1 retrieves the StableV1beta1Client
+func (c *Clientset) StableV1beta1() stablev1beta1.StableV1beta1Interface {
+	return &fakestablev1beta1.FakeStableV1beta1{Fake: &c.Fake}
 }
